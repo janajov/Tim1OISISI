@@ -13,14 +13,10 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
 public class ApotekaRegistracija  extends JDialog {
-
-	private final JPanel contentPanelLogovanje = new JPanel();
 	private JTextField txtKorisnickoIme;
 	private JPasswordField LozinkaField;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			ApotekaRegistracija dialog = new ApotekaRegistracija();
@@ -31,51 +27,40 @@ public class ApotekaRegistracija  extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+	
 	public ApotekaRegistracija() {
+		getContentPane().setBackground(new Color(102, 205, 170));
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
-		contentPanelLogovanje.setBackground(new Color(102, 205, 170));
-		contentPanelLogovanje.setBounds(0, 0, 434, 228);
-		contentPanelLogovanje.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanelLogovanje);
-		contentPanelLogovanje.setLayout(null);
-		
-		JLabel lblKorisnickoIme = new JLabel("Korisnicko ime");
-		lblKorisnickoIme.setBounds(52, 59, 94, 25);
-		contentPanelLogovanje.add(lblKorisnickoIme);
-		
-		txtKorisnickoIme = new JTextField();
-		txtKorisnickoIme.setBounds(152, 61, 86, 20);
-		contentPanelLogovanje.add(txtKorisnickoIme);
-		txtKorisnickoIme.setColumns(10);
+		{
+			JButton okButton = new JButton("OK");
+			okButton.setBounds(282, 215, 49, 25);
+			getContentPane().add(okButton);
+			okButton.setActionCommand("OK");
+			getRootPane().setDefaultButton(okButton);
+		}
 		
 		JLabel lblLozinka = new JLabel("Lozinka");
-		lblLozinka.setBounds(52, 121, 46, 14);
-		contentPanelLogovanje.add(lblLozinka);
+		lblLozinka.setBounds(53, 127, 46, 14);
+		getContentPane().add(lblLozinka);
 		
 		LozinkaField = new JPasswordField();
-		LozinkaField.setBounds(152, 118, 86, 20);
-		contentPanelLogovanje.add(LozinkaField);
+		LozinkaField.setBounds(165, 124, 86, 20);
+		getContentPane().add(LozinkaField);
+		
+		txtKorisnickoIme = new JTextField();
+		txtKorisnickoIme.setBounds(165, 75, 86, 20);
+		getContentPane().add(txtKorisnickoIme);
+		txtKorisnickoIme.setColumns(10);
+		
+		JLabel lblKorisnickoIme = new JLabel("Korisnicko ime");
+		lblKorisnickoIme.setBounds(53, 72, 94, 25);
+		getContentPane().add(lblKorisnickoIme);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(new Color(102, 205, 170));
-			buttonPane.setBounds(0, 228, 434, 33);
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			JButton cancelButton = new JButton("Cancel");
+			cancelButton.setBounds(343, 215, 71, 25);
+			getContentPane().add(cancelButton);
+			cancelButton.setActionCommand("Cancel");
 		}
 	}
 }
