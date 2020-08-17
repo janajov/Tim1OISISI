@@ -34,7 +34,7 @@ public class ApotekaRegistracija  extends JDialog {
 		getContentPane().setLayout(null);
 		{
 			JButton okButton = new JButton("OK");
-			okButton.setBounds(282, 215, 49, 25);
+			okButton.setBounds(246, 215, 65, 25);
 			getContentPane().add(okButton);
 			okButton.setActionCommand("OK");
 			getRootPane().setDefaultButton(okButton);
@@ -58,7 +58,7 @@ public class ApotekaRegistracija  extends JDialog {
 		getContentPane().add(lblKorisnickoIme);
 		{
 			JButton cancelButton = new JButton("Cancel");
-			cancelButton.setBounds(343, 215, 71, 25);
+			cancelButton.setBounds(332, 215, 77, 25);
 			getContentPane().add(cancelButton);
 			cancelButton.setActionCommand("Cancel");
 		}
