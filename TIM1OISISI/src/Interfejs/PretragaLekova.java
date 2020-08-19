@@ -25,8 +25,11 @@ import javax.swing.ButtonGroup;
 public class PretragaLekova  extends JDialog {
 
 	private final JPanel contentPanelLogovanje = new JPanel();
-	private JTextField textField;
+	private JTextField txtSifra;
 	private JTable table;
+	private JTextField txtIme;
+	private JTextField txtCena;
+	private JTextField txtProizvodjac;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
@@ -54,32 +57,6 @@ public class PretragaLekova  extends JDialog {
 		getContentPane().add(contentPanelLogovanje);
 		contentPanelLogovanje.setLayout(null);
 		
-		JPanel panelPretraga = new JPanel();
-		panelPretraga.setBorder(new TitledBorder(null, "Pretraga", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelPretraga.setBackground(new Color(102, 205, 170));
-		panelPretraga.setBounds(32, 13, 149, 175);
-		contentPanelLogovanje.add(panelPretraga);
-		
-		JRadioButton rdbtnPoImenu = new JRadioButton("po imenu");
-		buttonGroup.add(rdbtnPoImenu);
-		rdbtnPoImenu.setBackground(new Color(102, 205, 170));
-		panelPretraga.add(rdbtnPoImenu);
-		
-		JRadioButton rdbtnPoSifri = new JRadioButton("po \u0161ifri");
-		buttonGroup.add(rdbtnPoSifri);
-		panelPretraga.add(rdbtnPoSifri);
-		rdbtnPoSifri.setBackground(new Color(102, 205, 170));
-		
-		JRadioButton rdbtnPoOpsegu = new JRadioButton("po opsegu cene");
-		buttonGroup.add(rdbtnPoOpsegu);
-		panelPretraga.add(rdbtnPoOpsegu);
-		rdbtnPoOpsegu.setBackground(new Color(102, 205, 170));
-		
-		JRadioButton rdbtnPoProizvodjacu = new JRadioButton("po proizvo\u0111a\u010Du");
-		buttonGroup.add(rdbtnPoProizvodjacu);
-		rdbtnPoProizvodjacu.setBackground(new Color(102, 205, 170));
-		panelPretraga.add(rdbtnPoProizvodjacu);
-		
 		JPanel panelSifra = new JPanel();
 		panelSifra.setBackground(new Color(102, 205, 170));
 		panelSifra.setBounds(32, 201, 174, 78);
@@ -88,9 +65,9 @@ public class PretragaLekova  extends JDialog {
 		JLabel lblUnesiSifru = new JLabel("Unesi \u0161ifru za pretragu:");
 		panelSifra.add(lblUnesiSifru);
 		
-		textField = new JTextField();
-		panelSifra.add(textField);
-		textField.setColumns(10);
+		txtSifra = new JTextField();
+		panelSifra.add(txtSifra);
+		txtSifra.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(230, 13, 486, 233);
@@ -108,9 +85,72 @@ public class PretragaLekova  extends JDialog {
 		table.getColumnModel().getColumn(0).setPreferredWidth(88);
 		scrollPane.setViewportView(table);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(32, 202, 174, 77);
-		contentPanelLogovanje.add(panel);
+		JPanel panelIme = new JPanel();
+		panelIme.setBackground(new Color(102, 205, 170));
+		panelIme.setBounds(32, 201, 174, 78);
+		contentPanelLogovanje.add(panelIme);
+		
+		JLabel labelIme = new JLabel("Unesi ime za pretragu:");
+		panelIme.add(labelIme);
+		
+		txtIme = new JTextField();
+		panelIme.add(txtIme);
+		txtIme.setColumns(10);
+		
+		JPanel panelCena = new JPanel();
+		panelCena.setBackground(new Color(102, 205, 170));
+		panelCena.setBounds(32, 201, 174, 78);
+		contentPanelLogovanje.add(panelCena);
+		
+		JLabel lblCena = new JLabel("Unesi opseg cena");
+		panelCena.add(lblCena);
+		
+		txtCena = new JTextField();
+		txtCena.setColumns(10);
+		panelCena.add(txtCena);
+		
+		JPanel panelProizvodjac = new JPanel();
+		panelProizvodjac.setBackground(new Color(102, 205, 170));
+		panelProizvodjac.setBounds(32, 201, 174, 78);
+		contentPanelLogovanje.add(panelProizvodjac);
+		
+		JLabel lblUnesiProizvoaa = new JLabel("Unesi proizvo\u0111a\u010Da");
+		panelProizvodjac.add(lblUnesiProizvoaa);
+		
+		txtProizvodjac = new JTextField();
+		txtProizvodjac.setColumns(10);
+		panelProizvodjac.add(txtProizvodjac);
+		
+		JPanel panelPretraga = new JPanel();
+		panelPretraga.setBorder(new TitledBorder(null, "Pretraga", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelPretraga.setBackground(new Color(102, 205, 170));
+		panelPretraga.setBounds(28, 13, 143, 171);
+		contentPanelLogovanje.add(panelPretraga);
+		panelPretraga.setLayout(null);
+		
+		JRadioButton rdbtnSifra = new JRadioButton("po \u0161ifri");
+		rdbtnSifra.setBounds(8, 22, 67, 25);
+		panelPretraga.add(rdbtnSifra);
+		rdbtnSifra.setBackground(new Color(102, 205, 170));
+		buttonGroup.add(rdbtnSifra);
+		
+		JRadioButton rdbtnIme = new JRadioButton("po imenu");
+		rdbtnIme.setBounds(8, 53, 81, 25);
+		panelPretraga.add(rdbtnIme);
+		rdbtnIme.setBackground(new Color(102, 205, 170));
+		buttonGroup.add(rdbtnIme);
+		
+		JRadioButton rdbtnProizvodjac = new JRadioButton("po proizvo\u0111a\u010Du");
+		rdbtnProizvodjac.setBounds(8, 83, 115, 25);
+		panelPretraga.add(rdbtnProizvodjac);
+		rdbtnProizvodjac.setBackground(new Color(102, 205, 170));
+		buttonGroup.add(rdbtnProizvodjac);
+		
+		JRadioButton rdbtnCena = new JRadioButton("po opsegu cena");
+		rdbtnCena.setBounds(8, 112, 119, 25);
+		panelPretraga.add(rdbtnCena);
+		rdbtnCena.setBackground(new Color(102, 205, 170));
+		buttonGroup.add(rdbtnCena);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(new Color(102, 205, 170));
