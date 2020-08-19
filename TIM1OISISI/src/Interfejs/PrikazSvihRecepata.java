@@ -47,18 +47,22 @@ public class PrikazSvihRecepata  extends JDialog {
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Sortiranje", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(25, 35, 144, 158);
 		getContentPane().add(panel);
+		panel.setLayout(null);
 		
-		JRadioButton rdbtnPoi = new JRadioButton("po \u0161ifri");
-		rdbtnPoi.setBackground(new Color(102, 205, 170));
-		panel.add(rdbtnPoi);
+		JRadioButton rdbtSifra = new JRadioButton("po \u0161ifri");
+		rdbtSifra.setBounds(0, 23, 67, 25);
+		rdbtSifra.setBackground(new Color(102, 205, 170));
+		panel.add(rdbtSifra);
 		
-		JRadioButton rdbtnPoLekaru = new JRadioButton("po lekaru");
-		rdbtnPoLekaru.setBackground(new Color(102, 205, 170));
-		panel.add(rdbtnPoLekaru);
+		JRadioButton rdbtLekar = new JRadioButton("po lekaru");
+		rdbtLekar.setBounds(0, 53, 81, 25);
+		rdbtLekar.setBackground(new Color(102, 205, 170));
+		panel.add(rdbtLekar);
 		
-		JRadioButton rdbtnPoDatumu = new JRadioButton("po datumu");
-		rdbtnPoDatumu.setBackground(new Color(102, 205, 170));
-		panel.add(rdbtnPoDatumu);
+		JRadioButton rdbtDatum = new JRadioButton("po datumu");
+		rdbtDatum.setBounds(0, 83, 89, 25);
+		rdbtDatum.setBackground(new Color(102, 205, 170));
+		panel.add(rdbtDatum);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(191, 45, 567, 240);
@@ -74,9 +78,9 @@ public class PrikazSvihRecepata  extends JDialog {
 		));
 		scrollPane.setViewportView(table);
 		
-		JButton btnPrikai = new JButton("Prika\u017Ei");
-		btnPrikai.setBounds(53, 246, 97, 25);
-		getContentPane().add(btnPrikai);
+		JButton btnPrikazi = new JButton("Prika\u017Ei");
+		btnPrikazi.setBounds(53, 246, 97, 25);
+		getContentPane().add(btnPrikazi);
 		
 		JButton btnOdustani = new JButton("Odustani");
 		btnOdustani.setBounds(53, 300, 97, 25);

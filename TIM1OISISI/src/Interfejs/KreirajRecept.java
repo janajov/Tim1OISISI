@@ -63,9 +63,9 @@ public class KreirajRecept  extends JDialog {
 		));
 		scrollPane.setViewportView(table);
 		
-		JButton btnPrikai = new JButton("Dodaj u recept");
-		btnPrikai.setBounds(53, 246, 141, 25);
-		getContentPane().add(btnPrikai);
+		JButton btnDodajUrecept = new JButton("Dodaj u recept");
+		btnDodajUrecept.setBounds(53, 246, 141, 25);
+		getContentPane().add(btnDodajUrecept);
 		
 		txtJMBG = new JTextField();
 		txtJMBG.setBounds(118, 50, 116, 22);
@@ -95,21 +95,21 @@ public class KreirajRecept  extends JDialog {
 		getContentPane().add(txtCena);
 		txtCena.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("JMBG pacijenta");
-		lblNewLabel.setBounds(12, 53, 94, 16);
-		getContentPane().add(lblNewLabel);
+		JLabel lblJmbgPacijenta = new JLabel("JMBG pacijenta");
+		lblJmbgPacijenta.setBounds(12, 53, 94, 16);
+		getContentPane().add(lblJmbgPacijenta);
 		
-		JLabel lblNewLabel_1 = new JLabel("Datum");
-		lblNewLabel_1.setBounds(12, 88, 56, 16);
-		getContentPane().add(lblNewLabel_1);
+		JLabel lblDatum = new JLabel("Datum");
+		lblDatum.setBounds(12, 88, 56, 16);
+		getContentPane().add(lblDatum);
 		
 		JLabel lblifra = new JLabel("\u0160ifra");
 		lblifra.setBounds(12, 123, 56, 16);
 		getContentPane().add(lblifra);
 		
-		JLabel lblKoliina = new JLabel("Koli\u010Dina");
-		lblKoliina.setBounds(12, 158, 56, 16);
-		getContentPane().add(lblKoliina);
+		JLabel lblKolicina = new JLabel("Koli\u010Dina");
+		lblKolicina.setBounds(12, 158, 56, 16);
+		getContentPane().add(lblKolicina);
 		
 		JLabel lblCena = new JLabel("Cena");
 		lblCena.setBounds(12, 193, 56, 16);
@@ -129,9 +129,9 @@ public class KreirajRecept  extends JDialog {
 		));
 		scrollKorpa.setViewportView(table_1);
 		
-		JLabel lblKorpa = new JLabel("Sadr\u017Eaj recepta");
-		lblKorpa.setBounds(30, 294, 105, 16);
-		getContentPane().add(lblKorpa);
+		JLabel lblSadrzajRecepta = new JLabel("Sadr\u017Eaj recepta");
+		lblSadrzajRecepta.setBounds(30, 294, 105, 16);
+		getContentPane().add(lblSadrzajRecepta);
 		
 		JButton btnSauvajRecept = new JButton("Sa\u010Duvaj recept");
 		btnSauvajRecept.setBounds(592, 506, 154, 25);
