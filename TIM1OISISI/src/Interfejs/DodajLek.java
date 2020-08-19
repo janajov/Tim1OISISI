@@ -92,21 +92,24 @@ public class DodajLek  extends JDialog {
 		contentPanelLogovanje.add(txtProizvodjac);
 		txtProizvodjac.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(147, 120, 116, 23);
-		contentPanelLogovanje.add(comboBox);
+		
+		
+		JComboBox comboRecept = new JComboBox();
+		comboRecept.setSelectedIndex(0);
+		comboRecept.setBounds(147, 120, 116, 23);
+		contentPanelLogovanje.add(comboRecept);
 		{
-			JButton AddButton = new JButton("Add");
-			AddButton.setBounds(132, 222, 79, 25);
-			contentPanelLogovanje.add(AddButton);
-			AddButton.setActionCommand("OK");
-			getRootPane().setDefaultButton(AddButton);
+			JButton dodajButton = new JButton("Dodaj");
+			dodajButton.setBounds(77, 222, 98, 25);
+			contentPanelLogovanje.add(dodajButton);
+			dodajButton.setActionCommand("OK");
+			getRootPane().setDefaultButton(dodajButton);
 		}
 		{
-			JButton cancelButton = new JButton("Cancel");
-			cancelButton.setBounds(223, 222, 71, 25);
-			contentPanelLogovanje.add(cancelButton);
-			cancelButton.setActionCommand("Cancel");
+			JButton otkaziButton = new JButton("Otka\u017Ei");
+			otkaziButton.setBounds(187, 222, 107, 25);
+			contentPanelLogovanje.add(otkaziButton);
+			otkaziButton.setActionCommand("Cancel");
 		}
 		
 		JScrollPane scrollPane = new JScrollPane();
