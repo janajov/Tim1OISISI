@@ -36,24 +36,25 @@ public class Lekar  extends JDialog {
 	 * Create the dialog.
 	 */
 	public Lekar() {
+		getContentPane().setBackground(new Color(102, 205, 170));
+		setTitle("LEKAR");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 		contentPanelLogovanje.setBackground(new Color(102, 205, 170));
-		contentPanelLogovanje.setBounds(0, 0, 434, 253);
+		contentPanelLogovanje.setBounds(0, -29, 434, 282);
 		contentPanelLogovanje.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanelLogovanje);
 		contentPanelLogovanje.setLayout(null);
 		
 		JButton btnOdustani = new JButton("Odustani");
-		btnOdustani.setBounds(299, 165, 97, 25);
+		btnOdustani.setBounds(311, 211, 97, 25);
 		contentPanelLogovanje.add(btnOdustani);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBackground(new Color(102, 205, 170));
+		menuBar.setBackground(new Color(240, 240, 240));
 		setJMenuBar(menuBar);
 		
 		JMenu mnLekovi = new JMenu("Lekovi");
-		mnLekovi.setBackground(new Color(139, 0, 139));
 		menuBar.add(mnLekovi);
 		
 		JMenuItem mntmPrikazLekova = new JMenuItem("Prikaz lekova");
