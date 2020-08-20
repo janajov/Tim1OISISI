@@ -57,20 +57,24 @@ public class PrikazSvihLekova  extends JDialog {
 		JPanel panelSortiranje = new JPanel();
 		panelSortiranje.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Sortiranje", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelSortiranje.setBackground(new Color(102, 205, 170));
-		panelSortiranje.setBounds(35, 13, 149, 175);
+		panelSortiranje.setBounds(40, 31, 149, 126);
 		contentPanelLogovanje.add(panelSortiranje);
+		panelSortiranje.setLayout(null);
 		
 		JRadioButton rdbtnPoImenu = new JRadioButton("po imenu leka");
+		rdbtnPoImenu.setBounds(8, 23, 109, 25);
 		buttonGroup.add(rdbtnPoImenu);
 		rdbtnPoImenu.setBackground(new Color(102, 205, 170));
 		panelSortiranje.add(rdbtnPoImenu);
 		
 		JRadioButton rdbtnPoProizvodjacu = new JRadioButton("po proizvo\u0111a\u010Du");
+		rdbtnPoProizvodjacu.setBounds(8, 53, 115, 25);
 		buttonGroup.add(rdbtnPoProizvodjacu);
 		rdbtnPoProizvodjacu.setBackground(new Color(102, 205, 170));
 		panelSortiranje.add(rdbtnPoProizvodjacu);
 		
 		JRadioButton rdbtnPoCeni = new JRadioButton("po ceni");
+		rdbtnPoCeni.setBounds(8, 83, 69, 25);
 		buttonGroup.add(rdbtnPoCeni);
 		panelSortiranje.add(rdbtnPoCeni);
 		rdbtnPoCeni.setBackground(new Color(102, 205, 170));
@@ -92,11 +96,11 @@ public class PrikazSvihLekova  extends JDialog {
 		scrollPane.setViewportView(table);
 		
 		JButton btnPrikazi = new JButton("Prika\u017Ei");
-		btnPrikazi.setBounds(45, 196, 69, 25);
+		btnPrikazi.setBounds(40, 181, 81, 25);
 		contentPanelLogovanje.add(btnPrikazi);
 		
 		JButton btnOdustani = new JButton("Odustani");
-		btnOdustani.setBounds(43, 234, 83, 25);
+		btnOdustani.setBounds(40, 219, 109, 25);
 		contentPanelLogovanje.add(btnOdustani);
 		{
 			JPanel buttonPane = new JPanel();
