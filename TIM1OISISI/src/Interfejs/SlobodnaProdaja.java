@@ -24,9 +24,9 @@ import javax.swing.JCheckBox;
 
 public class SlobodnaProdaja  extends JDialog {
 	private JTable table;
-	private JTextField txtJMBG;
-	private JTextField txtDatum;
 	private JTextField txtSifra;
+	private JTextField txtKolicina;
+	private JTextField txtCena;
 	private JTable table_1;
 	private JTextField txtIme;
 	private JTextField txtPrezime;
@@ -68,26 +68,26 @@ public class SlobodnaProdaja  extends JDialog {
 		));
 		scrollPane.setViewportView(table);
 		
-		JButton btnPrikai = new JButton("Dodaj u korpu");
-		btnPrikai.setBounds(64, 179, 141, 25);
-		getContentPane().add(btnPrikai);
-		
-		txtJMBG = new JTextField();
-		txtJMBG.setBounds(118, 50, 116, 22);
-		getContentPane().add(txtJMBG);
-		txtJMBG.setColumns(10);
-		
-		txtDatum = new JTextField();
-		txtDatum.setText("");
-		txtDatum.setBounds(118, 85, 116, 22);
-		getContentPane().add(txtDatum);
-		txtDatum.setColumns(10);
+		JButton btnDodajUkorpu = new JButton("Dodaj u korpu");
+		btnDodajUkorpu.setBounds(64, 179, 141, 25);
+		getContentPane().add(btnDodajUkorpu);
 		
 		txtSifra = new JTextField();
-		txtSifra.setText("");
-		txtSifra.setBounds(118, 120, 116, 22);
+		txtSifra.setBounds(118, 50, 116, 22);
 		getContentPane().add(txtSifra);
 		txtSifra.setColumns(10);
+		
+		txtKolicina = new JTextField();
+		txtKolicina.setText("");
+		txtKolicina.setBounds(118, 85, 116, 22);
+		getContentPane().add(txtKolicina);
+		txtKolicina.setColumns(10);
+		
+		txtCena = new JTextField();
+		txtCena.setText("");
+		txtCena.setBounds(118, 120, 116, 22);
+		getContentPane().add(txtCena);
+		txtCena.setColumns(10);
 		
 		JLabel lblifra = new JLabel("\u0160ifra");
 		lblifra.setBounds(12, 53, 56, 16);
@@ -115,13 +115,13 @@ public class SlobodnaProdaja  extends JDialog {
 		));
 		scrollKorpa.setViewportView(table_1);
 		
-		JLabel lblKorpa = new JLabel("Sadr\u017Eaj korpe");
-		lblKorpa.setBounds(30, 294, 105, 16);
-		getContentPane().add(lblKorpa);
+		JLabel lblSadrzajKorpe = new JLabel("Sadr\u017Eaj korpe");
+		lblSadrzajKorpe.setBounds(30, 294, 105, 16);
+		getContentPane().add(lblSadrzajKorpe);
 		
-		JLabel lblTrenutniIznosRauna = new JLabel("Trenutni iznos ra\u010Duna:");
-		lblTrenutniIznosRauna.setBounds(40, 516, 154, 16);
-		getContentPane().add(lblTrenutniIznosRauna);
+		JLabel lblTrenutniIznosRacuna = new JLabel("Trenutni iznos ra\u010Duna:");
+		lblTrenutniIznosRacuna.setBounds(40, 516, 154, 16);
+		getContentPane().add(lblTrenutniIznosRacuna);
 		
 		JPanel panelNapraviRacun = new JPanel();
 		panelNapraviRacun.setBackground(new Color(102, 205, 170));
@@ -129,9 +129,9 @@ public class SlobodnaProdaja  extends JDialog {
 		getContentPane().add(panelNapraviRacun);
 		panelNapraviRacun.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Ime kupca");
-		lblNewLabel.setBounds(12, 24, 74, 16);
-		panelNapraviRacun.add(lblNewLabel);
+		JLabel lblImeKupca = new JLabel("Ime kupca");
+		lblImeKupca.setBounds(12, 24, 74, 16);
+		panelNapraviRacun.add(lblImeKupca);
 		
 		JLabel lblPrezimeKupca = new JLabel("Prezime kupca");
 		lblPrezimeKupca.setBounds(12, 60, 97, 16);
@@ -175,9 +175,9 @@ public class SlobodnaProdaja  extends JDialog {
 		btnNewButton.setBounds(64, 202, 138, 25);
 		panelNapraviRacun.add(btnNewButton);
 		
-		JButton btnNapraviRaun = new JButton("Napravi ra\u010Dun");
-		btnNapraviRaun.setBounds(526, 278, 127, 25);
-		getContentPane().add(btnNapraviRaun);
+		JButton btnNapraviRacun = new JButton("Napravi ra\u010Dun");
+		btnNapraviRacun.setBounds(526, 278, 127, 25);
+		getContentPane().add(btnNapraviRacun);
 		
 		JButton btnOdustani = new JButton("Odustani");
 		btnOdustani.setBounds(359, 569, 97, 25);
