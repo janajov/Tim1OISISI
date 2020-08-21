@@ -23,6 +23,7 @@ import Model.LekKlasa;
 import Model.LekRecept;
 import Model.RacunBaza;
 import Model.ReceptBaza;
+import java.awt.Color;
 
 
 
@@ -57,6 +58,7 @@ public class frmIzvestajPoApotekaru extends JDialog {
 	 * Create the dialog.
 	 */
 	public frmIzvestajPoApotekaru() {
+		getContentPane().setBackground(new Color(102, 205, 170));
 		setTitle("IZVE\u0160TAJ SVI PRODATIH LEKOVA IZABRANOG APOTEKARA");
 		setModal(true);
 		setBounds(100, 100, 841, 419);
