@@ -158,7 +158,7 @@ public class PrikazSvihLekova extends JDialog {
 				dispose();
 			}
 		});
-		btnOdustani.setBounds(10, 266, 89, 23);
+		btnOdustani.setBounds(10, 249, 89, 23);
 		getContentPane().add(btnOdustani);
 		contentPanel.setLayout(null);
 

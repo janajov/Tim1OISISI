@@ -328,33 +328,6 @@ public class PretragaLekova extends JDialog {
 		txtProizvodjac.setColumns(10);
 		txtProizvodjac.setBounds(24, 36, 119, 20);
 		panelProizvodjac.add(txtProizvodjac);
-
-		panelCena = new JPanel();
-		panelCena.setBounds(10, 241, 181, 87);
-		getContentPane().add(panelCena);
-		panelCena.setLayout(null);
-
-		lblCena = new JLabel("Unesi opseg cena:");
-		lblCena.setBounds(10, 11, 129, 14);
-		panelCena.add(lblCena);
-
-		txtC1 = new JTextField();
-		txtC1.setBounds(85, 36, 86, 20);
-		panelCena.add(txtC1);
-		txtC1.setColumns(10);
-
-		lblNewLabel = new JLabel("Od:");
-		lblNewLabel.setBounds(10, 39, 46, 14);
-		panelCena.add(lblNewLabel);
-
-		lblNewLabel_1 = new JLabel("Do:");
-		lblNewLabel_1.setBounds(10, 64, 46, 14);
-		panelCena.add(lblNewLabel_1);
-
-		txtC2 = new JTextField();
-		txtC2.setBounds(85, 61, 86, 20);
-		panelCena.add(txtC2);
-		txtC2.setColumns(10);
 		
 		btnOdustani = new JButton("Odustani");
 		btnOdustani.addActionListener(new ActionListener() {
@@ -362,11 +335,39 @@ public class PretragaLekova extends JDialog {
 				dispose();
 			}
 		});
+		
+				panelCena = new JPanel();
+				panelCena.setBackground(new Color(102, 205, 170));
+				panelCena.setBounds(10, 241, 181, 87);
+				getContentPane().add(panelCena);
+				panelCena.setLayout(null);
+				
+						lblCena = new JLabel("Unesi opseg cena:");
+						lblCena.setBounds(10, 11, 129, 14);
+						panelCena.add(lblCena);
+						
+								txtC1 = new JTextField();
+								txtC1.setBounds(85, 36, 86, 20);
+								panelCena.add(txtC1);
+								txtC1.setColumns(10);
+								
+										lblNewLabel = new JLabel("Od:");
+										lblNewLabel.setBounds(10, 39, 46, 14);
+										panelCena.add(lblNewLabel);
+										
+												lblNewLabel_1 = new JLabel("Do:");
+												lblNewLabel_1.setBounds(10, 64, 46, 14);
+												panelCena.add(lblNewLabel_1);
+												
+														txtC2 = new JTextField();
+														txtC2.setBounds(85, 61, 86, 20);
+														panelCena.add(txtC2);
+														txtC2.setColumns(10);
+														panelCena.setVisible(false);
 		btnOdustani.setBounds(700, 280, 89, 23);
 		getContentPane().add(btnOdustani);
 		panelIme.setVisible(false);
 		panelSifra.setVisible(false);
 		panelProizvodjac.setVisible(false);
-		panelCena.setVisible(false);
 	}
 }

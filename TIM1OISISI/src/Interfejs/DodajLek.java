@@ -80,6 +80,8 @@ public class DodajLek  extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
+		setModal(true);
+		
 		lekovi.importLek();
 		
 		
@@ -112,8 +114,7 @@ public class DodajLek  extends JDialog {
 		
 		lblCena = new JLabel("Cena:");
 		lblCena.setBounds(24, 152, 56, 16);
-		contentPanel.add(lblCena);
-		
+		contentPanel.add(lblCena);	
 		
 		
 		lblIzdavanjeNaRecept = new JLabel("Izdavanje na recept:");
