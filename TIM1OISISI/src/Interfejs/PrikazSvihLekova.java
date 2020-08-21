@@ -1,113 +1,144 @@
 package Interfejs;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
-import javax.swing.JTextPane;
-import javax.swing.JComboBox;
-import javax.swing.border.TitledBorder;
-import javax.swing.SwingConstants;
-import java.awt.Component;
-import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.UIManager;
+import javax.swing.JScrollPane;
+import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
-public class PrikazSvihLekova  extends JDialog {
+import Model.KorisnikBaza;
+import Model.LekBaza;
 
-	private final JPanel contentPanelLogovanje = new JPanel();
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.awt.Color;
+
+public class PrikazSvihLekova extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
 	private JTable table;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonSortiranje = new ButtonGroup();
+	DefaultTableModel model;
+	int prikaz;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			PrikazSvihLekova dialog = new PrikazSvihLekova();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	LekBaza lekovi = new LekBaza();
 
-	/**
-	 * Create the dialog.
-	 */
-	public PrikazSvihLekova() {
+	
+	public PrikazSvihLekova(int prikaz) {
+		getContentPane().setBackground(new Color(102, 205, 170));
+		
+		setTitle("Prikaz svih lekova");
+		setModal(true);
 		setBounds(100, 100, 764, 364);
 		getContentPane().setLayout(null);
-		contentPanelLogovanje.setBackground(new Color(102, 205, 170));
-		contentPanelLogovanje.setBounds(0, 0, 746, 279);
-		contentPanelLogovanje.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanelLogovanje);
-		contentPanelLogovanje.setLayout(null);
-		
-		JPanel panelSortiranje = new JPanel();
-		panelSortiranje.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Sortiranje", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelSortiranje.setBackground(new Color(102, 205, 170));
-		panelSortiranje.setBounds(40, 31, 149, 126);
-		contentPanelLogovanje.add(panelSortiranje);
-		panelSortiranje.setLayout(null);
-		
-		JRadioButton rdbtnPoImenu = new JRadioButton("po imenu leka");
-		rdbtnPoImenu.setBounds(8, 23, 109, 25);
-		buttonGroup.add(rdbtnPoImenu);
-		rdbtnPoImenu.setBackground(new Color(102, 205, 170));
-		panelSortiranje.add(rdbtnPoImenu);
-		
-		JRadioButton rdbtnPoProizvodjacu = new JRadioButton("po proizvo\u0111a\u010Du");
-		rdbtnPoProizvodjacu.setBounds(8, 53, 115, 25);
-		buttonGroup.add(rdbtnPoProizvodjacu);
-		rdbtnPoProizvodjacu.setBackground(new Color(102, 205, 170));
-		panelSortiranje.add(rdbtnPoProizvodjacu);
-		
-		JRadioButton rdbtnPoCeni = new JRadioButton("po ceni");
-		rdbtnPoCeni.setBounds(8, 83, 69, 25);
-		buttonGroup.add(rdbtnPoCeni);
-		panelSortiranje.add(rdbtnPoCeni);
-		rdbtnPoCeni.setBackground(new Color(102, 205, 170));
-		
+		this.prikaz = prikaz;
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(230, 13, 486, 233);
-		contentPanelLogovanje.add(scrollPane);
-		
+		getContentPane().add(scrollPane);
+
 		table = new JTable();
-		table.setBackground(new Color(102, 205, 170));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Ide na recept", "\u0160ifra", "Ime", "Cena", "Proizvo\u0111a\u010D"
-			}
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(88);
 		scrollPane.setViewportView(table);
-		
-		JButton btnPrikazi = new JButton("Prika\u017Ei");
-		btnPrikazi.setBounds(40, 181, 81, 25);
-		contentPanelLogovanje.add(btnPrikazi);
-		
+		String[] header = new String[] { "Sifra", "Ime", "Proizvodjaè", "Ide na recept", "Cena" };
+
+		model = new DefaultTableModel(new Object[][] {}, header);
+
+		table.setModel(model);
+
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(102, 205, 170));
+		panel.setBorder(new TitledBorder(null, "Sortiranje", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 36, 168, 161);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+
+		JRadioButton rdbtIme = new JRadioButton("po imenu leka");
+		rdbtIme.setBackground(new Color(102, 205, 170));
+		buttonSortiranje.add(rdbtIme);
+		rdbtIme.setBounds(0, 31, 109, 23);
+		panel.add(rdbtIme);
+
+		JRadioButton rdbtProizvodjac = new JRadioButton("po proizvodja\u010Du");
+		rdbtProizvodjac.setBackground(new Color(102, 205, 170));
+		buttonSortiranje.add(rdbtProizvodjac);
+		rdbtProizvodjac.setBounds(0, 57, 139, 23);
+		panel.add(rdbtProizvodjac);
+
+		JRadioButton rdbtCena = new JRadioButton("po ceni");
+		rdbtCena.setBackground(new Color(102, 205, 170));
+		buttonSortiranje.add(rdbtCena);
+		rdbtCena.setBounds(0, 83, 109, 23);
+		panel.add(rdbtCena);
+
+		JButton btnPrikazi = new JButton("Prikazi");
+		btnPrikazi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				// lekovi.importLek();
+				String customQuery = "";
+				try {
+
+					if (rdbtIme.isSelected())
+						customQuery = "SELECT  * from lek order by ime";
+					else if (rdbtProizvodjac.isSelected())
+						customQuery = "SELECT  * from lek order by proizvodjac";
+					else if (rdbtCena.isSelected())
+						customQuery = "SELECT  * from lek order by cena";
+					else {
+						JOptionPane.showMessageDialog(btnPrikazi, "Morate selektovati izbor sortiranja!!!!");
+						return;
+					}
+
+					model.setRowCount(0);
+
+					List<List<Object>> lista = lekovi.SelectQueryList(customQuery);
+
+					for (List<Object> obj : lista) {
+
+						if (prikaz == 1)
+							model.addRow(new Object[] { obj.get(0), obj.get(1), obj.get(2), obj.get(3), obj.get(4) });
+						else {
+
+							if (Integer.parseInt(obj.get(5).toString()) == 1) {
+								model.addRow(
+										new Object[] { obj.get(0), obj.get(1), obj.get(2), obj.get(3), obj.get(4) });
+							}
+						}
+					}
+
+					table.setModel(model);
+					table.setFillsViewportHeight(true);
+				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
+				}
+			}
+		});
+		btnPrikazi.setBounds(10, 213, 89, 23);
+		getContentPane().add(btnPrikazi);
+
 		JButton btnOdustani = new JButton("Odustani");
-		btnOdustani.setBounds(40, 219, 109, 25);
-		contentPanelLogovanje.add(btnOdustani);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(new Color(102, 205, 170));
-			buttonPane.setBounds(0, 276, 746, 41);
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane);
-		}
+		btnOdustani.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnOdustani.setBounds(10, 249, 89, 23);
+		getContentPane().add(btnOdustani);
+		contentPanel.setLayout(null);
+
 	}
 }
