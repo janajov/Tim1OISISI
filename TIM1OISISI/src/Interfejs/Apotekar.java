@@ -42,7 +42,7 @@ public class Apotekar extends JDialog {
 	public Apotekar(String apotekar, int prikaz) {
 		setTitle("Apotekar");
 		setBounds(100, 100, 450, 300);
-		setModal(true);
+		
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(102, 205, 170));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

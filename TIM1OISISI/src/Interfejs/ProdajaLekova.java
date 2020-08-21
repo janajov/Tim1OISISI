@@ -107,6 +107,27 @@ public class ProdajaLekova extends JDialog {
 		
 		JButton btnKreniProdaju = new JButton("Prodaja");
 		
+		btnKreniProdaju.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (rdbtnSlobodnaProdaja.isSelected()){
+					SlobodnaProdaja frm = new SlobodnaProdaja(apotekar,date) ;
+					frm.setVisible(true);
+				}
+					
+				else if (rdbtnRecept.isSelected()){
+					frmProdajaPutemRecepta frm = new frmProdajaPutemRecepta(apotekar,date) ;
+					frm.setVisible(true);
+				}
+				else {
+					JOptionPane.showMessageDialog(null,
+							"Morate selektovati izbor prodaje!!!!");
+					return;
+				}
+
+			}
+		});
+		btnKreniProdaju.setBounds(440, 218, 89, 23);
 		getContentPane().add(btnKreniProdaju);
 		
 		JButton btnOdustani = new JButton("Odustani");
