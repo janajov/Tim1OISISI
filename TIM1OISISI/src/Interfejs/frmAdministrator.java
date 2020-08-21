@@ -15,11 +15,12 @@ import javax.swing.JMenuItem;
 public class frmAdministrator extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-
+	private static final long serialVersionUID = 1L;
+	int prikaz;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			frmAdministrator dialog = new frmAdministrator();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
