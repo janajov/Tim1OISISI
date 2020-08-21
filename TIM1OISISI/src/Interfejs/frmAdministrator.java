@@ -19,23 +19,12 @@ import java.awt.event.MouseEvent;
 public class frmAdministrator extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			frmAdministrator dialog = new frmAdministrator();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	/**
-	 * Create the dialog.
-	 */
+	private static final long serialVersionUID = 1L;
+	int prikaz;
+	
+
+
 	public frmAdministrator() {
 		setTitle("Administrator");
 		setModal(true);
