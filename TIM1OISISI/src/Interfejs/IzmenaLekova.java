@@ -1,33 +1,56 @@
 package Interfejs;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
-import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
-public class IzmenaLekova  extends JDialog {
-	private JTextField txtPolje1;
-	private JTextField textPolje3;
-	private JTextField textPolje4;
-	private JPasswordField passwordField;
-	private JTable table;
+import Model.LekBaza;
+import Model.LekKlasa;
 
-	/**
-	 * Launch the application.
-	 */
+import java.util.List;
+import java.util.Vector;
+import java.awt.Color;
+
+public class IzmenaLekova extends JDialog {
+
+	
+	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
+	private JLabel lblifra;
+	private JTextField txtSifra;
+	private JLabel lblIme;
+	private JLabel lblProizvoda;
+	private JTextField txtProizvodjac;
+	private JLabel lblNaRecept;
+	private JTextField txtIme;
+	private JTextField txtCena;
+	private JComboBox<Boolean> comboRecept;
+	private JLabel lblCena;
+	private JButton btnIzmeni;
+	
+	LekKlasa lek;
+	LekBaza lekovi = new LekBaza();
+	 private Vector<Boolean> comboBoxItems;
+	 private JTable table;
+		DefaultTableModel model;
+		String[] header = new String[] { "Sifra", "Ime", "Proizvodjaè", "Ide na recept" , "Cena"  };
+
+
 	public static void main(String[] args) {
 		try {
 			IzmenaLekova dialog = new IzmenaLekova();
@@ -38,77 +61,189 @@ public class IzmenaLekova  extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+	
 	public IzmenaLekova() {
-		getContentPane().setBackground(new Color(102, 205, 170));
-		setBounds(100, 100, 723, 300);
-		getContentPane().setLayout(null);
+		setModal(true);
+		setBounds(100, 100, 925, 372);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(new Color(102, 205, 170));
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		lekovi.importLek();
 		
-		txtPolje1 = new JTextField();
-		txtPolje1.setBounds(131, 29, 116, 22);
-		getContentPane().add(txtPolje1);
-		txtPolje1.setColumns(10);
+		lblifra = new JLabel("\u0160ifra");
+		lblifra.setBounds(20, 40, 89, 14);
+		contentPanel.add(lblifra);
 		
-		textPolje3 = new JTextField();
-		textPolje3.setBounds(131, 97, 116, 22);
-		getContentPane().add(textPolje3);
-		textPolje3.setColumns(10);
+		txtSifra = new JTextField();
+		txtSifra.setColumns(10);
+		txtSifra.setBounds(120, 40, 106, 20);
+		contentPanel.add(txtSifra);
 		
-		textPolje4 = new JTextField();
-		textPolje4.setBounds(131, 165, 116, 22);
-		getContentPane().add(textPolje4);
-		textPolje4.setColumns(10);
+		lblIme = new JLabel("Ime");
+		lblIme.setBounds(20, 80, 46, 14);
+		contentPanel.add(lblIme);
 		
-		JLabel lblKorisnickoIme = new JLabel("\u0160ifra");
-		lblKorisnickoIme.setBounds(20, 29, 116, 22);
-		getContentPane().add(lblKorisnickoIme);
+		lblProizvoda = new JLabel("Proizvo\u0111a\u010D");
+		lblProizvoda.setBounds(20, 120, 76, 14);
+		contentPanel.add(lblProizvoda);
 		
-		JLabel lblNewLabel = new JLabel("Ime");
-		lblNewLabel.setBounds(20, 63, 56, 16);
-		getContentPane().add(lblNewLabel);
+		txtProizvodjac = new JTextField();
+		txtProizvodjac.setColumns(10);
+		txtProizvodjac.setBounds(120, 120, 106, 20);
+		contentPanel.add(txtProizvodjac);
 		
-		JLabel lblIme = new JLabel("Proizvo\u0111a\u010D");
-		lblIme.setBounds(20, 97, 56, 16);
-		getContentPane().add(lblIme);
+		lblNaRecept = new JLabel("Na recept");
+		lblNaRecept.setBounds(20, 160, 89, 14);
+		contentPanel.add(lblNaRecept);
 		
-		JLabel lblNewLabel_1 = new JLabel("Na recept");
-		lblNewLabel_1.setBounds(20, 131, 84, 16);
-		getContentPane().add(lblNewLabel_1);
+		txtIme = new JTextField();
+		txtIme.setColumns(10);
+		txtIme.setBounds(120, 80, 106, 20);
+		contentPanel.add(txtIme);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(131, 63, 116, 22);
-		getContentPane().add(passwordField);
+		txtCena = new JTextField();
+		txtCena.setColumns(10);
+		txtCena.setBounds(120, 200, 106, 20);
+		contentPanel.add(txtCena);
 		
-		JLabel lblTipKorisnika = new JLabel("Cena");
-		lblTipKorisnika.setBounds(20, 165, 84, 16);
-		getContentPane().add(lblTipKorisnika);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(131, 131, 116, 22);
-		getContentPane().add(comboBox);
+		comboBoxItems = new Vector<Boolean>();
+        comboBoxItems.add(Boolean.TRUE);
+        comboBoxItems.add(Boolean.FALSE);
+        comboRecept = new JComboBox<Boolean>(comboBoxItems);
+
+		comboRecept.setSelectedIndex(0);
+		comboRecept.setBounds(120, 160, 106, 20);
+		contentPanel.add(comboRecept);
 		
-		JButton btnNewButton = new JButton("Izmeni");
-		btnNewButton.setBounds(430, 215, 117, 25);
-		getContentPane().add(btnNewButton);
+		lblCena = new JLabel("Cena");
+		lblCena.setBounds(20, 200, 89, 14);
+		contentPanel.add(lblCena);
 		
-		JButton btnNewButton_1 = new JButton("Odustani");
-		btnNewButton_1.setBounds(596, 215, 97, 25);
-		getContentPane().add(btnNewButton_1);
+		btnIzmeni = new JButton("Izmeni");
+		btnIzmeni.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (table.getSelectedRow() <0){
+					JOptionPane
+					.showMessageDialog(null,
+							"Morate selektovati lek u tabeli koji zelite da menjate!");
+					return;
+				}
+					
+				lek = new LekKlasa();
+				try {
+
+					String sifra = txtSifra.getText().trim();
+					
+					
+					lek.setSifra(sifra);
+					
+					lek.setIme(txtIme.getText());
+					
+					lek.setProizvodjac(txtProizvodjac.getText());
+				
+					if((Boolean)comboRecept.getSelectedItem() == Boolean.TRUE)lek.setRecept(true);
+					else lek.setRecept(false);
+				
+				
+				    lek.setCena(Float.parseFloat(txtCena.getText()));
+				  
+					lekovi.izmenaLeka(lek);
+					JOptionPane
+					.showMessageDialog(null,
+							"Lek je izmenjen!");
+					
+					List<List<Object>> lista = lekovi
+							.SelectQueryList("SELECT  * from lek order by ime");
+					model = new DefaultTableModel(new Object[][] {}, header);
+					for (List<Object> obj : lista) {
+						model.addRow(new Object[] { obj.get(0), obj.get(1),
+								obj.get(2),
+								obj.get(3) ,
+								obj.get(4)  });
+
+					}
+
+					table.setModel(model);
+
+					/*
+					 * textIme.setText("" + radnici.getIme());
+					 * textPrezime.setText("" + radnici.getPrezime());
+					 */
+
+					// SetFieldsToDefault();
+
+				} catch (Exception ex) {
+					// SetFieldsToDefault();
+				}
+
+			}
+		});
+		btnIzmeni.setBounds(660, 277, 89, 23);
+		contentPanel.add(btnIzmeni);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(273, 29, 420, 161);
-		getContentPane().add(scrollPane);
+		scrollPane.setBounds(273, 25, 616, 214);
+		contentPanel.add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"\u0160ifra", "Ime", "Proizvo\u0111a\u010D", "Ide na recept", "Cena"
-			}
-		));
+		
+		List<List<Object>> lista = lekovi
+				.SelectQueryList("SELECT  * from lek order by ime");
+		model = new DefaultTableModel(new Object[][] {}, header);
+		for (List<Object> obj : lista) {
+			model.addRow(new Object[] { obj.get(0), obj.get(1),
+					obj.get(2),
+					obj.get(3) ,
+					obj.get(4)  });
+
+		}
+
+		table.setModel(model);
 		scrollPane.setViewportView(table);
+		
+		JButton btnOdustani = new JButton("Odustani");
+		btnOdustani.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnOdustani.setBounds(800, 277, 89, 23);
+		contentPanel.add(btnOdustani);
+		
+		table.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent event) {
+						
+						tableSelect(event);
+					}
+				});
+	}
+	private void tableSelect(ListSelectionEvent lse) {
+		if (table.getSelectedRow() <0)
+			return;
+			
+		
+		try {
+			
+			Object polje = model.getValueAt(table.getSelectedRow(), 0);
+			//String tableID = Integer.parseInt(polje.toString());
+			LekKlasa rec = lekovi.GetLek(polje.toString());
+			
+			txtSifra.setText(rec.getSifra() );
+			txtIme.setText(rec.getIme());
+			txtProizvodjac.setText(rec.getProizvodjac());
+			txtIme.setText(rec.getIme());
+			if(rec.getRecept() == Boolean.TRUE)comboRecept.setSelectedItem(true);
+			else comboRecept.setSelectedItem(false);
+			
+			
+			txtCena.setText(Float.toString(rec.getCena()));
+			
+		} catch (Exception e) {
+			System.out.println("Greska!!!!!"+e.getMessage());
+		}
 	}
 }
