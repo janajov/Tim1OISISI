@@ -27,7 +27,7 @@ public class frmAdministrator extends JDialog {
 
 	public frmAdministrator(int prikaz) {
 		setTitle("Administrator");
-		setModal(true);
+		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(102, 205, 170));
