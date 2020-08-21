@@ -47,6 +47,8 @@ public class Apotekar extends JDialog {
 		contentPanel.setBackground(new Color(102, 205, 170));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		this.apotekar = apotekar;
+		this.prikaz = prikaz;
 		contentPanel.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
