@@ -23,9 +23,6 @@ import Model.LekKlasa;
 import Model.LekRecept;
 import Model.RacunBaza;
 import Model.ReceptBaza;
-import java.awt.Color;
-
-
 
 public class frmIzvestajPoApotekaru extends JDialog {
 
@@ -58,7 +55,6 @@ public class frmIzvestajPoApotekaru extends JDialog {
 	 * Create the dialog.
 	 */
 	public frmIzvestajPoApotekaru() {
-		getContentPane().setBackground(new Color(102, 205, 170));
 		setTitle("IZVE\u0160TAJ SVI PRODATIH LEKOVA IZABRANOG APOTEKARA");
 		setModal(true);
 		setBounds(100, 100, 841, 419);
@@ -101,8 +97,8 @@ public class frmIzvestajPoApotekaru extends JDialog {
 					for (String i : lekovi.lekHash.keySet()) {
 						kolicina = 0;
 						LekKlasa obj = lekovi.lekHash.get(i);
-						for (Integer r : racuni.racunHash.keySet())
-
+						for (Integer r : racuni.racunHash.keySet()){
+							
 							if (racuni.racunHash
 									.get(r)
 									.getLekovi()
@@ -116,26 +112,28 @@ public class frmIzvestajPoApotekaru extends JDialog {
 											.get(lekovi.lekHash.get(i).getIme());
 									kolicina += l.getKolicina();
 								}
-
 							}
-						if (kolicina > 0) {
+						}
+						
+						if (kolicina > 0){
 							ukupno = kolicina * lekovi.lekHash.get(i).getCena();
 							ukupnaZaradaApoteke += ukupno;
 							lista1.add(lekovi.lekHash.get(i));
-						
+							
 							Object[] obj1 = new Object[] { obj.getSifra(),
 									obj.getIme(), obj.getProizvodjac(),
 									obj.getRecept(), obj.getCena(), kolicina,
 									ukupno, };
 							model.addRow(obj1);
-							// }
-
-						}else {
-							JOptionPane.showMessageDialog(null,
+						}							
+					}
+					
+					if (ukupno == 0) {
+						JOptionPane.showMessageDialog(null,
 								"Izabrani apotekar nije u evidenciji ili nema prodaju!");
-							return;
-						}	
-							
+						
+						lblSaldo.setText("--------------------------");
+						return;
 					}
 
 					lblSaldo.setText(Float.toString(ukupnaZaradaApoteke)+ "  dinara");
