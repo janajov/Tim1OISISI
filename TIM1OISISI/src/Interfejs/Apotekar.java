@@ -13,18 +13,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import java.awt.Color;
 
 public class Apotekar extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	String lekar;
+	
+	public String apotekar;
 	int prikaz;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			Apotekar dialog = new Apotekar();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -37,7 +39,7 @@ public class Apotekar extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public Apotekar() {
+	public Apotekar(String apotekar, int prikaz) {
 		setTitle("Apotekar");
 		setBounds(100, 100, 450, 300);
 		setModal(true);
@@ -57,14 +59,14 @@ public class Apotekar extends JDialog {
 		JMenuItem mntmPrikazLekova = new JMenuItem("Prikaz lekova");
 		mntmPrikazLekova.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PrikazSvihLekova frm = new PrikazSvihLekova();
+				PrikazSvihLekova frm = new PrikazSvihLekova(prikaz);
 				frm.setVisible(true);
 			}
 		});
 		mntmPrikazLekova.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				PrikazSvihLekova frm = new PrikazSvihLekova();
+				PrikazSvihLekova frm = new PrikazSvihLekova(prikaz);
 				frm.setVisible(true);
 				
 			}
@@ -74,26 +76,38 @@ public class Apotekar extends JDialog {
 		JMenuItem mntmPretragaLekova = new JMenuItem("Pretraga lekova");
 		mntmPretragaLekova.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PretragaLekova frm = new PretragaLekova();
+				PretragaLekova frm = new PretragaLekova(prikaz);
 				frm.setVisible(true);
 			}
 		});
 		mntmPretragaLekova.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				PretragaLekova frm = new PretragaLekova();
+				PretragaLekova frm = new PretragaLekova(prikaz);
 				frm.setVisible(true);
 			}
 		});
 		
 		mnLekovi.add(mntmPretragaLekova);
 		
-		/*JMenuItem mntmDodajLek = new JMenuItem("Dodaj lek");
+		JMenuItem mntmDodajLek = new JMenuItem("Dodaj lek");
+		mntmDodajLek.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DodajLek frm = new DodajLek();
+				frm.setVisible(true);
+			}
+		});
 		
 		mnLekovi.add(mntmDodajLek);
 		
 		JMenuItem mntmIzmeniLek = new JMenuItem("Izmeni lek");
-		mnLekovi.add(mntmIzmeniLek);*/
+		mntmIzmeniLek.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				IzmenaLekova frm = new IzmenaLekova();
+				frm.setVisible(true);
+			}
+		});
+		mnLekovi.add(mntmIzmeniLek);
 		
 		JMenu mnRecepti = new JMenu("Recepti");
 		menuBar.add(mnRecepti);
@@ -116,25 +130,24 @@ public class Apotekar extends JDialog {
 			}
 		});
 		mnRecepti.add(mntmPretragaRecepata);
-		JMenuItem mntmNewMenuItem = new JMenuItem("Kreiraj recept");
-		mntmNewMenuItem.addMouseListener(new MouseAdapter() {
+		JMenu mnProdajaLekova = new JMenu("Prodaja lekova");
+		mnProdajaLekova.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				KreirajRecept frm = new KreirajRecept();
+				ProdajaLekova frm = new ProdajaLekova(apotekar);
 				frm.setVisible(true);
 			}
 		});
-		mntmNewMenuItem.addActionListener(new ActionListener() {
+		mnProdajaLekova.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			KreirajRecept frm = new KreirajRecept();
+				ProdajaLekova frm = new ProdajaLekova(apotekar);
 				frm.setVisible(true);
+				
 			}
 		});
-		mnRecepti.add(mntmNewMenuItem);
-		
-		JMenu mnProdajaLekova = new JMenu("Prodaja lekova");
-		
 		menuBar.add(mnProdajaLekova);
+		
+		
 		
 		JButton btnOdustani = new JButton("Odustani");
 		btnOdustani.addActionListener(new ActionListener() {
