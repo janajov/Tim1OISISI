@@ -22,6 +22,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.awt.Color;
 
 public class ProdajaLekova extends JDialog {
 
@@ -48,6 +49,7 @@ public class ProdajaLekova extends JDialog {
 	 * Create the dialog.
 	 */
 	public ProdajaLekova (String apotekar) {
+		getContentPane().setBackground(new Color(102, 205, 170));
 		setTitle("PRODAJA LEKA");
 		setModal(true);
 		setBounds(100, 100, 891, 388);
