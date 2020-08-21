@@ -1,6 +1,7 @@
 package Interfejs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +34,10 @@ import Model.RacunBaza;
 import Model.RacunKlasa;
 import Model.ReceptBaza;
 import Model.ReceptKlasa;
+import Model.VipkarticaBaza;
+import Model.VipkarticaKlasa;
+import Model.VipkorisniciBaza;
+import Model.VipkorisniciKlasa;
 
 
 public class frmProdajaPutemRecepta extends JDialog {
@@ -72,7 +77,9 @@ public class frmProdajaPutemRecepta extends JDialog {
 	private JTextField txtUsername;
 	private JButton btnDodajVipKupca;
 	JCheckBox chbxVipKorisnik;
-	
+	VipkarticaBaza vipKartica = new VipkarticaBaza();
+	VipkorisniciBaza vipKorisnici = new VipkorisniciBaza();
+	VipkorisniciKlasa vp = new VipkorisniciKlasa();
 	
 	
 	ReceptBaza recepti = new ReceptBaza();
@@ -95,6 +102,7 @@ public class frmProdajaPutemRecepta extends JDialog {
 	 * Create the dialog.
 	 */
 	public frmProdajaPutemRecepta(String apotekar, Calendar datum) {
+		getContentPane().setBackground(new Color(102, 205, 170));
 		setTitle("IZDAVANJE RECEPTA");
 		setModal(true);
 		setBounds(100, 100, 925, 621);
@@ -103,7 +111,8 @@ public class frmProdajaPutemRecepta extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		lekovi.importLek();
-		
+		vipKartica.importKorisnik();
+		vipKorisnici.importKorisnik();
 		recepti.importRecept();
 		this.apotekar = apotekar;
 		this.datum = datum;
@@ -202,10 +211,64 @@ public class frmProdajaPutemRecepta extends JDialog {
 				racun = new RacunKlasa();
 				racun.setApotekar(apotekar);
 				racun.setDatum(datum);
-				
+				racun.setKupac(vp.getUsername());
 				racun.setLekovi(rec.getLekovi());
 				float konacanRacun = trenutniRacun;
-			
+				if (chbxVipKorisnik.isSelected()) {
+					float zbir = 0;
+
+					DateFormat dateFormat = new SimpleDateFormat(
+							"dd-MM-yyyy HH:mm:ss");
+
+					Date currentDate = new Date();
+					Calendar c = Calendar.getInstance();
+					c.setTime(currentDate);
+					c.add(Calendar.MONTH, -1);
+					System.out.println(dateFormat.format(c.getTime())
+							.toString());
+					for (Integer i : vipKartica.karticaHash.keySet()) {
+						if (vipKartica.karticaHash.get(i).getUsername()
+								.compareTo(vp.getUsername()) == 0) {
+							if (vipKartica.karticaHash.get(i).getDatum()
+									.after(c))
+
+								zbir += vipKartica.karticaHash.get(i)
+										.getIznos();
+
+						}
+
+					}
+					float popust =0;
+					if (zbir > 5000){
+						popust = konacanRacun * 20F / 100;
+						konacanRacun = konacanRacun - popust;
+						JOptionPane.showMessageDialog(null,
+								"Korisnik ima pravo na 20%popusta i iznosi " + popust+ "  Ukupan racun je "+konacanRacun );
+					}
+						
+					else if (zbir > 1000)
+						
+					{
+						popust = konacanRacun * 10F / 100;
+						konacanRacun = konacanRacun - popust;
+						JOptionPane.showMessageDialog(null,
+								"Korisnik ima pravo na 10%popusta i iznosi " + popust+ "  Ukupan racun je "+konacanRacun );
+					}
+					else{
+						popust = konacanRacun * 5F / 100;
+						konacanRacun = konacanRacun - popust;
+						JOptionPane.showMessageDialog(null,
+								"Korisnik ima pravo na 5%popusta i iznosi " + popust+ "  Ukupan racun je "+konacanRacun );
+					}
+						
+					VipkarticaKlasa p = new VipkarticaKlasa();
+					c.add(Calendar.MONTH, 1);
+					p.setDatum(datum);
+					p.setIznos(konacanRacun);
+					p.setUsername(vp.getUsername());
+					vipKartica.dodajKorisnika(p);
+
+				}
 				racun.setUkupno(konacanRacun);
 				racuni.dodajRacun(racun);
 				JOptionPane.showMessageDialog(null,
@@ -245,7 +308,40 @@ public class frmProdajaPutemRecepta extends JDialog {
 		panelNapraviRacun.add(txtUsername);
 
 		btnDodajVipKupca = new JButton("Dodaj vip kupca");
-		
+		btnDodajVipKupca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				chbxVipKorisnik.setSelected(false);
+				String ime = txtIme.getText();
+				String prezime = txtPrezime.getText();
+				String username = txtUsername.getText();
+
+				if (vipKorisnici.PostojiKorisnik(username)) {
+					chbxVipKorisnik.setSelected(true);
+					vp.setUsername(username);
+					JOptionPane.showMessageDialog(null,
+							"Korisnik je clan Vip kluba!");
+				}
+
+				else {
+					if (txtIme.getText().isEmpty()
+							|| txtPrezime.getText().isEmpty()
+							|| txtUsername.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null,
+								"Morate uneti sva polja!");
+						return;
+
+					}
+					vp.setIme(ime);
+					vp.setPrezime(prezime);
+					vp.setUsername(username);
+					chbxVipKorisnik.setSelected(true);
+					vipKorisnici.dodajKorisnika(vp);
+					JOptionPane.showMessageDialog(null,
+							"Korisnik je sada upisan  Vip klub!");
+				}
+
+			}
+		});
 		btnDodajVipKupca.setBounds(192, 103, 120, 23);
 		panelNapraviRacun.add(btnDodajVipKupca);
 
