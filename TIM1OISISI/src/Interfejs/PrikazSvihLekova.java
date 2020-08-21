@@ -37,23 +37,37 @@ public class PrikazSvihLekova extends JDialog {
 
 	LekBaza lekovi = new LekBaza();
 
-	
+	/**
+	 * Launch the application.
+	 */
+	/*public static void main(String[] args) {
+		try {
+			PrikazSvihLekova dialog = new PrikazSvihLekova();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+*/
+	/**
+	 * Create the dialog.
+	 */
 	public PrikazSvihLekova(int prikaz) {
 		getContentPane().setBackground(new Color(102, 205, 170));
-		
 		setTitle("Prikaz svih lekova");
 		setModal(true);
-		setBounds(100, 100, 764, 364);
+		setBounds(100, 100, 841, 339);
 		getContentPane().setLayout(null);
 		this.prikaz = prikaz;
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(230, 13, 486, 233);
+		scrollPane.setBounds(199, 39, 616, 214);
 		getContentPane().add(scrollPane);
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		String[] header = new String[] { "Sifra", "Ime", "Proizvodjaè", "Ide na recept", "Cena" };
+		String[] header = new String[] { "Sifra", "Ime", "Proizvodjaè", "Ide na recept" , "Cena"  };
 
 		model = new DefaultTableModel(new Object[][] {}, header);
 
@@ -61,7 +75,8 @@ public class PrikazSvihLekova extends JDialog {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(102, 205, 170));
-		panel.setBorder(new TitledBorder(null, "Sortiranje", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(null, "Sortiranje",
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(10, 36, 168, 161);
 		getContentPane().add(panel);
 		panel.setLayout(null);
@@ -99,24 +114,31 @@ public class PrikazSvihLekova extends JDialog {
 					else if (rdbtCena.isSelected())
 						customQuery = "SELECT  * from lek order by cena";
 					else {
-						JOptionPane.showMessageDialog(btnPrikazi, "Morate selektovati izbor sortiranja!!!!");
+						JOptionPane.showMessageDialog(btnPrikazi,
+								"Morate selektovati izbor sortiranja!!!!");
 						return;
 					}
 
 					model.setRowCount(0);
 
-					List<List<Object>> lista = lekovi.SelectQueryList(customQuery);
+					List<List<Object>> lista = lekovi
+							.SelectQueryList(customQuery);
 
 					for (List<Object> obj : lista) {
-
-						if (prikaz == 1)
-							model.addRow(new Object[] { obj.get(0), obj.get(1), obj.get(2), obj.get(3), obj.get(4) });
-						else {
-
-							if (Integer.parseInt(obj.get(5).toString()) == 1) {
-								model.addRow(
-										new Object[] { obj.get(0), obj.get(1), obj.get(2), obj.get(3), obj.get(4) });
-							}
+					
+						if(prikaz==1){
+						model.addRow(new Object[] { obj.get(0), obj.get(1),
+								obj.get(2),
+								obj.get(3) ,
+								obj.get(4)  });
+						}else {
+							
+						if( Integer.parseInt(obj.get(5).toString()) == 1)
+						{
+							model.addRow(new Object[] { obj.get(0), obj.get(1),
+								obj.get(2),
+								obj.get(3) ,
+								obj.get(4)  });}
 						}
 					}
 
@@ -129,14 +151,14 @@ public class PrikazSvihLekova extends JDialog {
 		});
 		btnPrikazi.setBounds(10, 213, 89, 23);
 		getContentPane().add(btnPrikazi);
-
+		
 		JButton btnOdustani = new JButton("Odustani");
 		btnOdustani.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		btnOdustani.setBounds(10, 249, 89, 23);
+		btnOdustani.setBounds(10, 266, 89, 23);
 		getContentPane().add(btnOdustani);
 		contentPanel.setLayout(null);
 
