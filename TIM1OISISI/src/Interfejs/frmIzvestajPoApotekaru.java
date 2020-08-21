@@ -2,23 +2,44 @@ package Interfejs;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JScrollPane;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import Model.LekBaza;
+import Model.LekKlasa;
+import Model.LekRecept;
+import Model.RacunBaza;
+import Model.ReceptBaza;
 import java.awt.Color;
+
+
 
 public class frmIzvestajPoApotekaru extends JDialog {
 
-	private final JPanel contentPanelIzvestajPoApotekaru = new JPanel();
-	private JTextField textField;
-	private JTable tableIzvestajPoApotekaru;
+	private final JPanel contentPanel = new JPanel();
+	private JTable table;
+
+	DefaultTableModel model;
+
+	LekBaza lekovi = new LekBaza();
+	ReceptBaza recepti = new ReceptBaza();
+	RacunBaza racuni = new RacunBaza();
+	private JTextField txtApotekar;
+	JLabel lblSaldo;
+
 
 	/**
 	 * Launch the application.
@@ -37,56 +58,125 @@ public class frmIzvestajPoApotekaru extends JDialog {
 	 * Create the dialog.
 	 */
 	public frmIzvestajPoApotekaru() {
-		setTitle("Izve\u0161taj svih prodatih lekova izabranog apotekara");
-		setBounds(100, 100, 821, 420);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanelIzvestajPoApotekaru.setBackground(new Color(102, 205, 170));
-		contentPanelIzvestajPoApotekaru.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanelIzvestajPoApotekaru, BorderLayout.CENTER);
-		contentPanelIzvestajPoApotekaru.setLayout(null);
-		
-		JScrollPane scrollPaneIzvestajPoApotekaru = new JScrollPane();
-		scrollPaneIzvestajPoApotekaru.setBounds(10, 11, 785, 204);
-		contentPanelIzvestajPoApotekaru.add(scrollPaneIzvestajPoApotekaru);
-		
-		tableIzvestajPoApotekaru = new JTable();
-		tableIzvestajPoApotekaru.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Sifra", "Ime", "Proizvodjac", "Ide na recept", "Cena jednog leka", "Prodata kolicina", "Ukupna zarada"
-			}
-		));
-		tableIzvestajPoApotekaru.getColumnModel().getColumn(2).setPreferredWidth(89);
-		tableIzvestajPoApotekaru.getColumnModel().getColumn(3).setPreferredWidth(83);
-		tableIzvestajPoApotekaru.getColumnModel().getColumn(4).setPreferredWidth(102);
-		tableIzvestajPoApotekaru.getColumnModel().getColumn(5).setPreferredWidth(96);
-		tableIzvestajPoApotekaru.getColumnModel().getColumn(6).setPreferredWidth(105);
-		scrollPaneIzvestajPoApotekaru.setViewportView(tableIzvestajPoApotekaru);
-		
-		JLabel lblImeApotekara = new JLabel("Ime apotekara:");
-		lblImeApotekara.setBounds(45, 316, 124, 14);
-		contentPanelIzvestajPoApotekaru.add(lblImeApotekara);
-		
-		textField = new JTextField();
-		textField.setBounds(141, 313, 165, 20);
-		contentPanelIzvestajPoApotekaru.add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblUkupnaZaradaApoteke = new JLabel("Ukupna zarada apoteke:");
-		lblUkupnaZaradaApoteke.setBounds(517, 226, 124, 14);
-		contentPanelIzvestajPoApotekaru.add(lblUkupnaZaradaApoteke);
-		
-		JLabel labelCifraZarade = new JLabel("---------------");
-		labelCifraZarade.setBounds(708, 226, 74, 14);
-		contentPanelIzvestajPoApotekaru.add(labelCifraZarade);
-		
+		getContentPane().setBackground(new Color(102, 205, 170));
+		setTitle("IZVE\u0160TAJ SVI PRODATIH LEKOVA IZABRANOG APOTEKARA");
+		setModal(true);
+		setBounds(100, 100, 841, 419);
+		getContentPane().setLayout(null);
+		lekovi.importLek();
+		recepti.importRecept();
+		racuni.importRacun();
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 805, 214);
+		getContentPane().add(scrollPane);
+
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		String[] header = new String[] { "Sifra", "Ime", "Proizvodjaè",
+				"Ide na recept", "Cena jednog leka", "Prodata kolicina",
+				"Ukupna zarada" };
+
+		model = new DefaultTableModel(new Object[][] {}, header);
+
+		table.setModel(model);
+
 		JButton btnPrikazi = new JButton("Prikazi");
-		btnPrikazi.setBounds(576, 312, 89, 23);
-		contentPanelIzvestajPoApotekaru.add(btnPrikazi);
-		
+		btnPrikazi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if (txtApotekar.getText().isEmpty()) {
+
+					JOptionPane.showMessageDialog(null,
+							"Niste uneli ime apotekara za pretragu!");
+					return;
+				}
+
+				try {
+					float ukupnaZaradaApoteke = 0;
+					int kolicina = 0;
+					float ukupno = 0;
+					model.setRowCount(0);
+					List<LekKlasa> lista1 = new ArrayList<LekKlasa>();
+					for (String i : lekovi.lekHash.keySet()) {
+						kolicina = 0;
+						LekKlasa obj = lekovi.lekHash.get(i);
+						for (Integer r : racuni.racunHash.keySet())
+
+							if (racuni.racunHash
+									.get(r)
+									.getLekovi()
+									.containsKey(lekovi.lekHash.get(i).getIme())) {
+								if (racuni.racunHash
+										.get(r).getApotekar().compareToIgnoreCase(
+										txtApotekar.getText()) == 0) {
+									LekRecept l = racuni.racunHash
+											.get(r)
+											.getLekovi()
+											.get(lekovi.lekHash.get(i).getIme());
+									kolicina += l.getKolicina();
+								}
+
+							}
+						if (kolicina > 0) {
+							ukupno = kolicina * lekovi.lekHash.get(i).getCena();
+							ukupnaZaradaApoteke += ukupno;
+							lista1.add(lekovi.lekHash.get(i));
+						
+							Object[] obj1 = new Object[] { obj.getSifra(),
+									obj.getIme(), obj.getProizvodjac(),
+									obj.getRecept(), obj.getCena(), kolicina,
+									ukupno, };
+							model.addRow(obj1);
+							// }
+
+						}else {
+							JOptionPane.showMessageDialog(null,
+								"Izabrani apotekar nije u evidenciji ili nema prodaju!");
+							return;
+						}	
+							
+					}
+
+					lblSaldo.setText(Float.toString(ukupnaZaradaApoteke)+ "  dinara");
+
+					table.setFillsViewportHeight(true);
+				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
+				}
+			}
+		});
+		btnPrikazi.setBounds(584, 323, 89, 23);
+		getContentPane().add(btnPrikazi);
+
 		JButton btnOdustani = new JButton("Odustani");
-		btnOdustani.setBounds(706, 312, 89, 23);
-		contentPanelIzvestajPoApotekaru.add(btnOdustani);
-	}
+		btnOdustani.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnOdustani.setBounds(715, 323, 89, 23);
+		getContentPane().add(btnOdustani);
+
+		JLabel lblApotekar = new JLabel("Ime apotekara:");
+		lblApotekar.setBounds(39, 310, 151, 14);
+		getContentPane().add(lblApotekar);
+
+		txtApotekar = new JTextField();
+		txtApotekar.setBounds(175, 307, 151, 20);
+		getContentPane().add(txtApotekar);
+		txtApotekar.setColumns(10);
+
+		JLabel lblUkupnaZarada = new JLabel("Ukupna zarada apoteke:");
+		lblUkupnaZarada.setBounds(470, 236, 173, 14);
+		getContentPane().add(lblUkupnaZarada);
+
+		lblSaldo = new JLabel("--------------------------");
+		lblSaldo.setBounds(701, 236, 114, 14);
+		getContentPane().add(lblSaldo);
+		contentPanel.setLayout(null);
+
+		}
+	
+
 }
