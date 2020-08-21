@@ -25,7 +25,7 @@ public class frmAdministrator extends JDialog {
 	
 
 
-	public frmAdministrator() {
+	public frmAdministrator(int prikaz) {
 		setTitle("Administrator");
 		setModal(true);
 		setBounds(100, 100, 450, 300);
@@ -34,7 +34,7 @@ public class frmAdministrator extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+		this.prikaz = prikaz;
 		{
 			JMenuBar menuBar = new JMenuBar();
 			menuBar.setBounds(0, 0, 434, 21);
@@ -46,14 +46,14 @@ public class frmAdministrator extends JDialog {
 					JMenuItem mntmPrikazLekova = new JMenuItem("Prikaz lekova");
 					mntmPrikazLekova.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							PrikazSvihLekova frm = new PrikazSvihLekova();
+							PrikazSvihLekova frm = new PrikazSvihLekova(prikaz);
 							frm.setVisible(true);
 						}
 					});
 					mntmPrikazLekova.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent arg0) {
-							PrikazSvihLekova frm = new PrikazSvihLekova();
+							PrikazSvihLekova frm = new PrikazSvihLekova(prikaz);
 							frm.setVisible(true);
 							
 						}
@@ -64,14 +64,14 @@ public class frmAdministrator extends JDialog {
 					JMenuItem mntmPretragaLekova = new JMenuItem("Pretraga lekova");
 					mntmPretragaLekova.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							PretragaLekova frm = new PretragaLekova();
+							PretragaLekova frm = new PretragaLekova(prikaz);
 							frm.setVisible(true);
 						}
 					});
 					mntmPretragaLekova.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
-							PretragaLekova frm = new PretragaLekova();
+							PretragaLekova frm = new PretragaLekova(prikaz);
 							frm.setVisible(true);
 						}
 					});
