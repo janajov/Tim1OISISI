@@ -75,6 +75,7 @@ public class PretragaLekova extends JDialog {
 */
 
 	public PretragaLekova(int prikaz) {
+		setTitle("Pretraga lekova");
 		getContentPane().setBackground(new Color(102, 205, 170));
 		setModal(true);
 		setBounds(100, 100, 891, 388);
