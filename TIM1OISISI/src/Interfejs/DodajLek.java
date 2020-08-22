@@ -73,6 +73,7 @@ public class DodajLek  extends JDialog {
 	 * Create the dialog.
 	 */
 	public DodajLek() {
+		setTitle("Dodaj lek");
 		setBounds(100, 100, 764, 364);
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(new Color(102, 205, 170));
